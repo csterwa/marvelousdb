@@ -1,4 +1,22 @@
-var db = require('orchestrate')(process.env.ORCHESTRATE_API_KEY);
+var orchestrate_api_key;
+var orchestrate_api_url;
+
+if (process.env.VCAP_SERVICES) {
+  var services = JSON.parse(process.env.VCAP_SERVICES);
+  var orchestrateConfig = services["orchestrate"];
+  if (orchestrateConfig) {
+    var node = orchestrateConfig[0];
+    orchestrate_api_key = node.credentials.ORCHESTRATE_API_KEY
+    orchestrate_api_url = node.credentials.ORCHESTRATE_API_URL
+  }
+}
+
+var orchestrate_module = require('orchestrate');
+orchestrate_module.ApiEndPoint = orchestrate_api_url.substring(8, orchestrate_api_url.length - 1);
+
+var db = orchestrate_module(orchestrate_api_key);
+console.log("Orchestrate API Key: " + orchestrate_api_key);
+console.log("Orchestrate API Endpoint: " + db.generateApiUrl(""));
 var Q = require('q');
 
 // GET A SINGLE CHARACTER

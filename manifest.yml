@@ -1,0 +1,7 @@
+---
+applications:
+- name: marvelousdb-c007
+  memory: 512M
+  instances: 1
+  services:
+    - obi-db
