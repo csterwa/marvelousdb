@@ -12,7 +12,7 @@ if (process.env.VCAP_SERVICES) {
 }
 
 var orchestrate_module = require('orchestrate');
-orchestrate_module.ApiEndPoint = orchestrate_api_url.substring(8, orchestrate_api_url.length - 1) + "/v0";
+orchestrate_module.ApiEndPoint = orchestrate_api_url.substring(8, orchestrate_api_url.length - 1);
 
 var db = orchestrate_module(orchestrate_api_key);
 console.log("Orchestrate API Key: " + orchestrate_api_key);
